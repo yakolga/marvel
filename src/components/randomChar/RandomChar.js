@@ -32,20 +32,19 @@ class RandomChar extends Component {
         });
     }
 
+    onLoadingChar = () => {
+        this.setState({
+            loading: true
+        });
+    }
+
     updateChar = () => {
+        this.onLoadingChar();
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.marvelService
             .getCharacter(id)
             .then(this.onCharLoaded)
             .catch(this.onError);
-    }
-
-    onToggleChar = () => {
-        this.setState({
-            loading: true
-        });
-
-        this.updateChar();
     }
 
     render() {
@@ -67,7 +66,7 @@ class RandomChar extends Component {
                     <p className="randomchar__title">
                         Or choose another one
                     </p>
-                    <button className="button button__main" onClick={this.onToggleChar}>
+                    <button className="button button__main" onClick={this.updateChar}>
                         <div className="inner">try it</div>
                     </button>
                     <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
@@ -79,7 +78,7 @@ class RandomChar extends Component {
 
 const View = ({char}) => {
     const {name, thumbnail, description, homepage, wiki} = char;
-    const notAvailableImage = thumbnail.includes('image_not_available') ? {objectFit: 'contain'} : null;
+    const notAvailableImage = thumbnail.includes('image_not_available') ? {objectFit: 'inherit'} : null;
     return (
         <div className="randomchar__block">
             <img src={thumbnail} alt="Random character" className="randomchar__img" style={notAvailableImage}/>
