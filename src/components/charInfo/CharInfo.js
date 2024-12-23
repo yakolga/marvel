@@ -26,7 +26,7 @@ const CharInfo = (props) => {
     }
 
     const onCharLoaded = (char) => {
-        setChar(char => char);
+        setChar(char);
     }
 
     const skeleton = char || loading || error ? null : <Skeleton/>;
@@ -45,7 +45,7 @@ const CharInfo = (props) => {
 
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
-    const notAvailableImage = char.thumbnail.includes('image_not_available') ? {objectFit: 'inherit'} : null;
+    const notAvailableImage = char.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' ? {objectFit: 'inherit'} : null;
 
     function comicsStructure(comics) {
         if (comics.length) {

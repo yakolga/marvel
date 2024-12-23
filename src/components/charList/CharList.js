@@ -23,7 +23,7 @@ const CharList = (props) => {
     const onRequest = (offset, initial) => {
         initial ? setNewElementLoading(false) : setNewElementLoading(true);
         getAllCharacters(offset)
-            .then(onCharLoaded)
+            .then(onCharLoaded);
     }
 
     const onCharLoaded = (newCharList) => {
@@ -48,7 +48,7 @@ const CharList = (props) => {
 
     function renderItems(arr) {
         const items = arr.map((element, i) => {
-            // const notAvailableImage = element.thumbnail.includes('image_not_available') ? {objectFit: 'inherit'} : null;
+            const notAvailableImage = element.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' ? {objectFit: 'inherit'} : null;
             return (
                 <li className="char__item"
                     key={element.id}
@@ -64,7 +64,7 @@ const CharList = (props) => {
                         }
                     }}
                     >
-                    <img src={element.thumbnail} alt={element.name}/>
+                    <img src={element.thumbnail} alt={element.name} style={notAvailableImage}/>
                     <div className="char__name">{element.name}</div>
                 </li>
             )
