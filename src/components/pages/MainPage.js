@@ -3,7 +3,7 @@ import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-import SearchChar from "../searchChar/SearchChar";
+import SearchCharForm from "../searchChar/SearchChar";
 import {Helmet} from "react-helmet";
 
 import decoration from '../../resources/img/vision.png';
@@ -32,7 +32,7 @@ const MainPage = () => {
                     <CharInfo charId={char} />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <SearchChar />
+                    <SearchCharForm />
                 </ErrorBoundary>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision" />

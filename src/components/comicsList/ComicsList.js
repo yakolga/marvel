@@ -5,13 +5,32 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const setContent = (process, Component, newElementLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner/>;
+            break;
+        case 'loading':
+            return newElementLoading ? <Component/> : <Spinner/>;
+            break;
+        case 'confirmed':
+            return <Component/>;
+            break;
+        case 'error':
+            <ErrorMessage/>
+            break;
+        default:
+            throw new Error('Unexpected process state');
+    }
+}
+
 const ComicsList = () => {
     const [charList, setCharList] = useState([]);
     const [offset, setOffset] = useState(0);
     const [newElementLoading, setNewElementLoading] = useState(false);
     const [charEnded, setCharEnded] = useState(false);
 
-    const {loading, error, getAllComics} = useMarvelService();
+    const {loading, error, getAllComics, process, setProcess} = useMarvelService();
 
     const marvelService = useMarvelService();
 
@@ -23,7 +42,8 @@ const ComicsList = () => {
         initial ? setNewElementLoading(false) : setNewElementLoading(true);
         setOffset(offset => offset + 7);
         getAllComics(offset)
-            .then(onCharLoaded);
+            .then(onCharLoaded)
+            .then(() => setProcess('confirmed'));
     }
 
     const onCharLoaded = (newCharList) => {
@@ -50,21 +70,16 @@ const ComicsList = () => {
             )
         });
 
-        return items;
+        return (
+            <ul className="comics__grid">
+                {items}
+            </ul>
+        );
     }
-
-    const items = renderComics(charList);
-
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading && !newElementLoading ? <Spinner/> : null;
 
     return (
         <div className="comics__list">
-            {spinner}
-            <ul className="comics__grid">
-                {errorMessage}
-                {items}
-            </ul>
+           {setContent(process, () => renderComics(charList), newElementLoading)}
             <button className="button button__main button__long" 
                 disabled={newElementLoading}
                 onClick={() => onRequest(offset)}
