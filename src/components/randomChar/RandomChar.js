@@ -7,7 +7,7 @@ import setContent from '../../utils/setContent';
 const RandomChar = () => {
 
     const [char, setChar] = useState({});
-    const {loading, error, getCharacter, clearError, process, setProcess} = useMarvelService();
+    const {getCharacter, clearError, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         updateChar();

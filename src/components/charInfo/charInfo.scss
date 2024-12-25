@@ -7,8 +7,12 @@
         position: relative;
         z-index: 5;
         background-color: #fff;
-        grid-row-start: 1;
-        grid-column-start: 2;
+
+        @media (min-width: 979px) {
+            grid-row-start: 1;
+            grid-column-start: 2;
+        }
+
         &-name {
             font-weight: bold;
             font-size: 22px;
@@ -64,7 +68,9 @@
         text-align: center;
     }
     &__list {
-        grid-row-end: 3;
-        grid-row-start: 1;
+        @media (min-width: 979px) {
+            grid-row-end: 3;
+            grid-row-start: 1;
+        }
     }
 }

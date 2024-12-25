@@ -1,8 +1,12 @@
 .search-char {
-    grid-row-start: 2;
-    grid-column-start: 2;
     padding: 25px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+
+    @media (min-width: 979px) {
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
 
     &__label {
         font-size: 18px;
